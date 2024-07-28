@@ -69,9 +69,11 @@ public class FlexibleRowHeightGridLayout: UICollectionViewLayout {
     
     /// Removes the layout as an observer from NotificationCenter (not strictly needed from iOS 9 onwards).
     deinit {
+        #if !os(visionOS)
         let orientationChangedNotification = UIDevice.orientationDidChangeNotification
-        let sizeCategoryChangedNotification = UIContentSizeCategory.didChangeNotification
         NotificationCenter.default.removeObserver(self, name: orientationChangedNotification, object: nil)
+        #endif
+        let sizeCategoryChangedNotification = UIContentSizeCategory.didChangeNotification
         NotificationCenter.default.removeObserver(self, name: sizeCategoryChangedNotification, object: nil)
     }
     
